@@ -1,0 +1,2140 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wisuda Xtraordinary – Primakara University</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+      :root {
+        --navy: #020d1f;
+        --navy-mid: #041535;
+        --blue-deep: #0a2556;
+        --blue: #0d3a8c;
+        --blue-bright: #1565d8;
+        --cyan: #38c6f4;
+        --silver: #c8d8f0;
+        --white: #ffffff;
+        --gold: #d4af37;
+        --accent: #00aaff;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--navy);
+        color: var(--silver);
+        font-family: "Rajdhani", sans-serif;
+        overflow-x: hidden;
+        cursor: none;
+      }
+
+      /* ─── CUSTOM CURSOR ─── */
+      .cursor {
+        width: 12px;
+        height: 12px;
+        background: var(--cyan);
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition:
+          transform 0.15s ease,
+          background 0.2s;
+        mix-blend-mode: screen;
+      }
+      .cursor-ring {
+        width: 38px;
+        height: 38px;
+        border: 1px solid rgba(56, 198, 244, 0.5);
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition: transform 0.35s ease;
+      }
+
+      /* ─── PARTICLES ─── */
+      #particles {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .particle {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: var(--cyan);
+        border-radius: 50%;
+        opacity: 0;
+        animation: floatParticle linear infinite;
+      }
+      @keyframes floatParticle {
+        0% {
+          transform: translateY(100vh) scale(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.6;
+        }
+        90% {
+          opacity: 0.3;
+        }
+        100% {
+          transform: translateY(-10vh) scale(1);
+          opacity: 0;
+        }
+      }
+
+      /* ─── INTRO / SPLASH ─── */
+      #intro {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        background: var(--navy);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        overflow: hidden;
+      }
+      .intro-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(56, 198, 244, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(56, 198, 244, 0.06) 1px, transparent 1px);
+        background-size: 60px 60px;
+        animation: gridDrift 20s linear infinite;
+      }
+      @keyframes gridDrift {
+        to {
+          background-position: 60px 60px;
+        }
+      }
+
+      /* diagonal stripe accents */
+      .intro-stripe {
+        position: absolute;
+        width: 500px;
+        height: 6px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--blue-bright),
+          var(--cyan),
+          transparent
+        );
+        opacity: 0;
+        filter: blur(1px);
+      }
+      .intro-stripe:nth-child(1) {
+        top: 30%;
+        left: -20%;
+        transform: rotate(-25deg);
+      }
+      .intro-stripe:nth-child(2) {
+        bottom: 30%;
+        right: -20%;
+        transform: rotate(-25deg);
+      }
+
+      .intro-logo-wrap {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+      }
+
+      /* SVG butterfly X logo */
+      .logo-svg {
+        width: 140px;
+        height: 140px;
+      }
+      .logo-path {
+        fill: url(#silverGrad);
+        filter: drop-shadow(0 0 18px rgba(56, 198, 244, 0.7));
+      }
+
+      .intro-title {
+        font-family: "Orbitron", sans-serif;
+        font-size: clamp(2.4rem, 6vw, 5rem);
+        font-weight: 900;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        background: linear-gradient(135deg, #fff 30%, var(--cyan) 70%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(0 0 30px rgba(56, 198, 244, 0.4));
+        opacity: 0;
+      }
+
+      .intro-sub {
+        font-family: "Rajdhani", sans-serif;
+        font-size: 1rem;
+        letter-spacing: 0.5em;
+        text-transform: uppercase;
+        color: var(--cyan);
+        opacity: 0;
+      }
+
+      .intro-univ {
+        font-family: "Rajdhani", sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 0.3em;
+        color: rgba(200, 216, 240, 0.5);
+        text-transform: uppercase;
+        opacity: 0;
+      }
+
+      .intro-line {
+        width: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--cyan),
+          transparent
+        );
+        opacity: 0;
+        margin: 4px 0;
+      }
+
+      .btn-open {
+        margin-top: 36px;
+        position: relative;
+        z-index: 2;
+        padding: 14px 52px;
+        border: 1px solid var(--cyan);
+        background: transparent;
+        color: var(--white);
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        cursor: none;
+        overflow: hidden;
+        clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+        transition: color 0.3s;
+        opacity: 0;
+      }
+      .btn-open::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, var(--blue-bright), var(--cyan));
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+        z-index: -1;
+      }
+      .btn-open:hover::before {
+        transform: scaleX(1);
+      }
+      .btn-open:hover {
+        color: var(--navy);
+      }
+
+      .btn-open .btn-shimmer {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 60%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        animation: shimmer 2.5s ease infinite;
+      }
+      @keyframes shimmer {
+        to {
+          left: 200%;
+        }
+      }
+
+      /* ─── MAIN CONTENT ─── */
+      #main {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      /* ─── NAV ─── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        padding: 18px 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: linear-gradient(
+          180deg,
+          rgba(2, 13, 31, 0.95) 0%,
+          transparent 100%
+        );
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(56, 198, 244, 0.1);
+      }
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 0.15em;
+        color: var(--white);
+      }
+      .nav-logo svg {
+        width: 32px;
+        height: 32px;
+      }
+      .nav-links {
+        display: flex;
+        gap: 36px;
+        list-style: none;
+      }
+      .nav-links a {
+        font-family: "Rajdhani", sans-serif;
+        font-size: 0.9rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--silver);
+        text-decoration: none;
+        position: relative;
+        padding-bottom: 4px;
+        transition: color 0.3s;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--cyan);
+        transition: width 0.3s;
+      }
+      .nav-links a:hover {
+        color: var(--cyan);
+      }
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      /* ─── HERO ─── */
+      #hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        padding: 120px 60px 80px;
+      }
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 70% 60% at 50% 40%,
+            rgba(13, 58, 140, 0.5) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            ellipse 40% 40% at 80% 80%,
+            rgba(56, 198, 244, 0.08) 0%,
+            transparent 60%
+          ),
+          var(--navy);
+      }
+      .hero-ornament {
+        position: absolute;
+        width: 700px;
+        height: 700px;
+        border: 1px solid rgba(56, 198, 244, 0.08);
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: orbitPulse 8s ease-in-out infinite;
+      }
+      .hero-ornament:nth-child(2) {
+        width: 500px;
+        height: 500px;
+        border-color: rgba(56, 198, 244, 0.12);
+        animation-delay: -3s;
+        animation-duration: 6s;
+      }
+      @keyframes orbitPulse {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 0.5;
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.04);
+          opacity: 1;
+        }
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+      }
+
+      .hero-kicker {
+        font-family: "Rajdhani", sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 0.5em;
+        color: var(--cyan);
+        text-transform: uppercase;
+        margin-bottom: 24px;
+      }
+      .hero-title {
+        font-family: "Orbitron", sans-serif;
+        font-size: clamp(3.5rem, 9vw, 8rem);
+        font-weight: 900;
+        line-height: 0.9;
+        background: linear-gradient(
+          135deg,
+          #fff 20%,
+          var(--cyan) 60%,
+          var(--blue-bright) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(0 0 40px rgba(56, 198, 244, 0.3));
+        margin-bottom: 8px;
+      }
+      .hero-sub {
+        font-family: "Rajdhani", sans-serif;
+        font-size: clamp(1rem, 2.5vw, 1.4rem);
+        letter-spacing: 0.6em;
+        color: var(--silver);
+        text-transform: uppercase;
+        margin-bottom: 40px;
+      }
+
+      .hero-date-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
+        padding: 12px 32px;
+        border: 1px solid rgba(56, 198, 244, 0.3);
+        background: rgba(13, 58, 140, 0.2);
+        backdrop-filter: blur(8px);
+        clip-path: polygon(16px 0%, 100% 0%, calc(100% - 16px) 100%, 0% 100%);
+        margin-bottom: 56px;
+      }
+      .hero-date-badge span {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.9rem;
+        letter-spacing: 0.15em;
+        color: var(--cyan);
+      }
+      .hero-date-badge .sep {
+        width: 1px;
+        height: 24px;
+        background: rgba(56, 198, 244, 0.4);
+      }
+
+      .hero-scroll {
+        position: absolute;
+        bottom: 32px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        z-index: 2;
+      }
+      .hero-scroll span {
+        font-size: 0.7rem;
+        letter-spacing: 0.3em;
+        color: rgba(200, 216, 240, 0.4);
+        text-transform: uppercase;
+      }
+      .scroll-dot {
+        width: 1px;
+        height: 48px;
+        background: linear-gradient(
+          180deg,
+          rgba(56, 198, 244, 0.6),
+          transparent
+        );
+        animation: scrollDot 1.8s ease-in-out infinite;
+      }
+      @keyframes scrollDot {
+        0%,
+        100% {
+          opacity: 0;
+          transform: scaleY(0);
+          transform-origin: top;
+        }
+        50% {
+          opacity: 1;
+          transform: scaleY(1);
+        }
+      }
+
+      /* ─── SECTION BASE ─── */
+      section {
+        position: relative;
+        overflow: hidden;
+      }
+      .section-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 100px 60px;
+      }
+
+      .section-label {
+        font-size: 0.75rem;
+        letter-spacing: 0.5em;
+        color: var(--cyan);
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .section-label::before {
+        content: "";
+        width: 40px;
+        height: 1px;
+        background: var(--cyan);
+      }
+      .section-title {
+        font-family: "Orbitron", sans-serif;
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 16px;
+        line-height: 1.1;
+      }
+      .section-divider {
+        width: 80px;
+        height: 2px;
+        background: linear-gradient(90deg, var(--cyan), transparent);
+        margin-bottom: 56px;
+      }
+
+      /* ─── ABOUT / WELCOME ─── */
+      #about {
+        background: linear-gradient(
+          180deg,
+          var(--navy) 0%,
+          var(--navy-mid) 100%
+        );
+      }
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+      .about-text p {
+        font-family: "Inter", sans-serif;
+        font-size: 1rem;
+        line-height: 1.8;
+        color: rgba(200, 216, 240, 0.75);
+        margin-bottom: 20px;
+      }
+      .about-text strong {
+        color: var(--cyan);
+      }
+
+      .about-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+      .stat-card {
+        padding: 28px 24px;
+        border: 1px solid rgba(56, 198, 244, 0.15);
+        background: rgba(13, 58, 140, 0.1);
+        position: relative;
+        overflow: hidden;
+        clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+        transition:
+          border-color 0.3s,
+          background 0.3s;
+      }
+      .stat-card:hover {
+        border-color: rgba(56, 198, 244, 0.5);
+        background: rgba(13, 58, 140, 0.25);
+      }
+      .stat-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(180deg, var(--cyan), var(--blue-bright));
+      }
+      .stat-num {
+        font-family: "Orbitron", sans-serif;
+        font-size: 2.2rem;
+        font-weight: 900;
+        color: var(--white);
+        background: linear-gradient(135deg, #fff, var(--cyan));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .stat-label {
+        font-size: 0.85rem;
+        letter-spacing: 0.1em;
+        color: var(--silver);
+        margin-top: 4px;
+      }
+
+      /* ─── SCHEDULE ─── */
+      #schedule {
+        background: var(--navy);
+      }
+      .schedule-timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .timeline-item {
+        display: grid;
+        grid-template-columns: 140px 40px 1fr;
+        gap: 0;
+        align-items: stretch;
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      .tl-time {
+        padding: 28px 20px 28px 0;
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.85rem;
+        color: var(--cyan);
+        text-align: right;
+        letter-spacing: 0.05em;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+      }
+      .tl-line {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+      }
+      .tl-dot {
+        width: 12px;
+        height: 12px;
+        border: 2px solid var(--cyan);
+        border-radius: 50%;
+        background: var(--navy);
+        z-index: 1;
+        margin-top: 32px;
+        box-shadow: 0 0 12px var(--cyan);
+        flex-shrink: 0;
+      }
+      .tl-connector {
+        width: 1px;
+        flex: 1;
+        background: linear-gradient(
+          180deg,
+          var(--cyan),
+          rgba(56, 198, 244, 0.1)
+        );
+      }
+      .timeline-item:last-child .tl-connector {
+        display: none;
+      }
+      .tl-card {
+        margin: 12px 0 12px 24px;
+        padding: 24px 28px;
+        border: 1px solid rgba(56, 198, 244, 0.12);
+        background: rgba(4, 21, 53, 0.6);
+        backdrop-filter: blur(8px);
+        clip-path: polygon(
+          0 0,
+          calc(100% - 12px) 0,
+          100% 12px,
+          100% 100%,
+          12px 100%,
+          0 calc(100% - 12px)
+        );
+        transition:
+          border-color 0.3s,
+          background 0.3s;
+      }
+      .tl-card:hover {
+        border-color: rgba(56, 198, 244, 0.4);
+        background: rgba(13, 58, 140, 0.25);
+      }
+      .tl-card-title {
+        font-family: "Rajdhani", sans-serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--white);
+        letter-spacing: 0.05em;
+        margin-bottom: 6px;
+      }
+      .tl-card-desc {
+        font-family: "Inter", sans-serif;
+        font-size: 0.9rem;
+        color: rgba(200, 216, 240, 0.6);
+        line-height: 1.6;
+      }
+      .tl-card-tag {
+        display: inline-block;
+        margin-top: 12px;
+        padding: 3px 12px;
+        background: rgba(56, 198, 244, 0.1);
+        border: 1px solid rgba(56, 198, 244, 0.25);
+        color: var(--cyan);
+        font-size: 0.72rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      /* ─── RUNDOWN ─── */
+      #rundown {
+        background: linear-gradient(
+          180deg,
+          var(--navy-mid) 0%,
+          var(--navy) 100%
+        );
+      }
+      .rundown-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+      }
+      .rundown-card {
+        padding: 32px 28px;
+        border: 1px solid rgba(56, 198, 244, 0.12);
+        background: rgba(4, 21, 53, 0.5);
+        position: relative;
+        overflow: hidden;
+        clip-path: polygon(
+          0 0,
+          100% 0,
+          100% calc(100% - 20px),
+          calc(100% - 20px) 100%,
+          0 100%
+        );
+        transition:
+          transform 0.3s,
+          border-color 0.3s;
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      .rundown-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(56, 198, 244, 0.4);
+      }
+      .rundown-card::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 20px;
+        height: 20px;
+        border-top: 1px solid rgba(56, 198, 244, 0.3);
+        border-left: 1px solid rgba(56, 198, 244, 0.3);
+        transform: rotate(180deg);
+      }
+      .rundown-num {
+        font-family: "Orbitron", sans-serif;
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: rgba(56, 198, 244, 0.15);
+        line-height: 1;
+        margin-bottom: 12px;
+      }
+      .rundown-time {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.8rem;
+        color: var(--cyan);
+        letter-spacing: 0.15em;
+        margin-bottom: 10px;
+      }
+      .rundown-title {
+        font-family: "Rajdhani", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 8px;
+      }
+      .rundown-desc {
+        font-family: "Inter", sans-serif;
+        font-size: 0.85rem;
+        color: rgba(200, 216, 240, 0.6);
+        line-height: 1.6;
+      }
+
+      /* ─── GALLERY ─── */
+      #gallery {
+        background: var(--navy);
+      }
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: repeat(3, 200px);
+        gap: 8px;
+      }
+      .gallery-item {
+        overflow: hidden;
+        position: relative;
+        background: var(--blue-deep);
+        opacity: 0;
+        transition:
+          transform 0.4s ease,
+          opacity 0.4s;
+      }
+      .gallery-item:hover {
+        z-index: 2;
+      }
+      .gallery-item:nth-child(1) {
+        grid-column: 1 / 6;
+        grid-row: 1 / 3;
+      }
+      .gallery-item:nth-child(2) {
+        grid-column: 6 / 9;
+        grid-row: 1 / 2;
+      }
+      .gallery-item:nth-child(3) {
+        grid-column: 9 / 13;
+        grid-row: 1 / 3;
+      }
+      .gallery-item:nth-child(4) {
+        grid-column: 6 / 9;
+        grid-row: 2 / 3;
+      }
+      .gallery-item:nth-child(5) {
+        grid-column: 1 / 5;
+        grid-row: 3 / 4;
+      }
+      .gallery-item:nth-child(6) {
+        grid-column: 5 / 9;
+        grid-row: 3 / 4;
+      }
+      .gallery-item:nth-child(7) {
+        grid-column: 9 / 13;
+        grid-row: 3 / 4;
+      }
+
+      .gallery-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--blue-deep), var(--navy-mid));
+        position: relative;
+        overflow: hidden;
+      }
+      .gallery-placeholder::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at 50% 50%,
+          rgba(56, 198, 244, 0.08),
+          transparent 70%
+        );
+      }
+      .gallery-placeholder svg {
+        width: 48px;
+        height: 48px;
+        opacity: 0.2;
+      }
+      .gallery-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          0deg,
+          rgba(2, 13, 31, 0.85) 0%,
+          transparent 50%
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+        display: flex;
+        align-items: flex-end;
+        padding: 20px;
+      }
+      .gallery-item:hover .gallery-overlay {
+        opacity: 1;
+      }
+      .gallery-overlay p {
+        font-family: "Rajdhani", sans-serif;
+        font-size: 0.9rem;
+        letter-spacing: 0.1em;
+        color: var(--white);
+      }
+
+      /* gallery decorative line */
+      .gallery-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.85) saturate(1.1);
+        transition:
+          transform 0.5s ease,
+          filter 0.3s;
+      }
+      .gallery-item:hover .gallery-img {
+        transform: scale(1.06);
+        filter: brightness(1) saturate(1.3);
+      }
+
+      /* ─── DRESS CODE ─── */
+      #dresscode {
+        background: linear-gradient(
+          180deg,
+          var(--navy) 0%,
+          var(--navy-mid) 100%
+        );
+      }
+      .dresscode-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 24px;
+      }
+      .dress-card {
+        padding: 40px 32px;
+        text-align: center;
+        border: 1px solid rgba(56, 198, 244, 0.12);
+        background: rgba(4, 21, 53, 0.4);
+        transition:
+          transform 0.3s,
+          border-color 0.3s;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      .dress-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(56, 198, 244, 0.5);
+      }
+      .dress-icon {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 20px;
+        border: 1px solid rgba(56, 198, 244, 0.3);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(13, 58, 140, 0.2);
+        font-size: 1.8rem;
+      }
+      .dress-role {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.8rem;
+        letter-spacing: 0.2em;
+        color: var(--cyan);
+        margin-bottom: 10px;
+      }
+      .dress-name {
+        font-family: "Rajdhani", sans-serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 8px;
+      }
+      .dress-desc {
+        font-family: "Inter", sans-serif;
+        font-size: 0.85rem;
+        color: rgba(200, 216, 240, 0.6);
+        line-height: 1.6;
+      }
+
+      /* ─── LOCATION ─── */
+      #location {
+        background: var(--navy);
+      }
+      .location-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+      .location-map {
+        height: 320px;
+        border: 1px solid rgba(56, 198, 244, 0.2);
+        background: var(--blue-deep);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        clip-path: polygon(
+          0 0,
+          calc(100% - 20px) 0,
+          100% 20px,
+          100% 100%,
+          20px 100%,
+          0 calc(100% - 20px)
+        );
+      }
+      .location-map::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(rgba(56, 198, 244, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(56, 198, 244, 0.05) 1px, transparent 1px);
+        background-size: 40px 40px;
+      }
+      .map-pin {
+        width: 16px;
+        height: 16px;
+        background: var(--cyan);
+        border-radius: 50%;
+        box-shadow:
+          0 0 24px var(--cyan),
+          0 0 48px rgba(56, 198, 244, 0.4);
+        position: relative;
+        z-index: 2;
+        animation: pingPulse 2s ease-in-out infinite;
+      }
+      @keyframes pingPulse {
+        0%,
+        100% {
+          box-shadow:
+            0 0 16px var(--cyan),
+            0 0 32px rgba(56, 198, 244, 0.4);
+          transform: scale(1);
+        }
+        50% {
+          box-shadow:
+            0 0 32px var(--cyan),
+            0 0 64px rgba(56, 198, 244, 0.5);
+          transform: scale(1.2);
+        }
+      }
+      .location-info {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      .location-detail {
+        display: flex;
+        gap: 16px;
+        padding: 20px 24px;
+        border: 1px solid rgba(56, 198, 244, 0.12);
+        background: rgba(4, 21, 53, 0.4);
+      }
+      .location-detail-icon {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        border: 1px solid rgba(56, 198, 244, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--cyan);
+        font-size: 1.1rem;
+      }
+      .location-detail-text h4 {
+        font-family: "Rajdhani", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 4px;
+      }
+      .location-detail-text p {
+        font-family: "Inter", sans-serif;
+        font-size: 0.85rem;
+        color: rgba(200, 216, 240, 0.6);
+        line-height: 1.5;
+      }
+
+      /* ─── CONTACT ─── */
+      #contact {
+        background: linear-gradient(
+          180deg,
+          var(--navy-mid) 0%,
+          var(--navy) 100%
+        );
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+      }
+      .contact-card {
+        padding: 36px;
+        border: 1px solid rgba(56, 198, 244, 0.12);
+        background: rgba(4, 21, 53, 0.4);
+        clip-path: polygon(
+          0 0,
+          calc(100% - 16px) 0,
+          100% 16px,
+          100% 100%,
+          0 100%
+        );
+      }
+      .contact-card h3 {
+        font-family: "Rajdhani", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 20px;
+        letter-spacing: 0.1em;
+      }
+      .contact-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .contact-list li {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-family: "Inter", sans-serif;
+        font-size: 0.9rem;
+        color: rgba(200, 216, 240, 0.7);
+      }
+      .contact-list .icon {
+        color: var(--cyan);
+        font-size: 1rem;
+        width: 20px;
+        text-align: center;
+      }
+
+      /* ─── FOOTER ─── */
+      footer {
+        background: var(--navy-mid);
+        border-top: 1px solid rgba(56, 198, 244, 0.1);
+        padding: 48px 60px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.9rem;
+        letter-spacing: 0.15em;
+        color: var(--white);
+      }
+      .footer-tagline {
+        font-family: "Inter", sans-serif;
+        font-size: 0.8rem;
+        color: rgba(200, 216, 240, 0.4);
+        text-align: center;
+        letter-spacing: 0.05em;
+      }
+      .footer-line {
+        width: 100%;
+        max-width: 600px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(56, 198, 244, 0.3),
+          transparent
+        );
+      }
+      .footer-copy {
+        font-family: "Inter", sans-serif;
+        font-size: 0.75rem;
+        color: rgba(200, 216, 240, 0.3);
+        letter-spacing: 0.08em;
+      }
+
+      /* ─── GLITCH ANIM ─── */
+      @keyframes glitch {
+        0%,
+        92%,
+        100% {
+          clip-path: none;
+          transform: none;
+        }
+        93% {
+          clip-path: inset(20% 0 60% 0);
+          transform: translate(-4px, 0);
+        }
+        95% {
+          clip-path: inset(60% 0 10% 0);
+          transform: translate(4px, 0);
+        }
+        97% {
+          clip-path: inset(40% 0 30% 0);
+          transform: translate(-2px, 0);
+        }
+      }
+
+      /* ─── SCROLL REVEAL ─── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ─── SCANLINE ─── */
+      .scanline {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        pointer-events: none;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 0, 0, 0.03) 2px,
+          rgba(0, 0, 0, 0.03) 4px
+        );
+      }
+
+      /* ─── RESPONSIVE ─── */
+      @media (max-width: 900px) {
+        nav {
+          padding: 16px 24px;
+        }
+        .nav-links {
+          display: none;
+        }
+        .section-inner {
+          padding: 80px 24px;
+        }
+        .about-grid,
+        .location-grid,
+        .contact-grid {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .dresscode-grid {
+          grid-template-columns: 1fr;
+        }
+        .gallery-grid {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto;
+        }
+        .gallery-item {
+          grid-column: auto !important;
+          grid-row: auto !important;
+          height: 160px;
+        }
+        #hero {
+          padding: 120px 24px 80px;
+        }
+        .about-stats {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scanline"></div>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <div id="particles"></div>
+
+    <!-- ═══════════════════ INTRO ═══════════════════ -->
+    <div id="intro">
+      <div class="intro-grid"></div>
+      <div class="intro-stripe"></div>
+      <div class="intro-stripe"></div>
+
+      <div class="intro-logo-wrap">
+        <!-- Butterfly X SVG Logo -->
+        <svg
+          class="logo-svg"
+          viewBox="0 0 200 200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient id="silverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color: #ffffff" />
+              <stop offset="40%" style="stop-color: #a8c8e8" />
+              <stop offset="100%" style="stop-color: #38c6f4" />
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <!-- X butterfly shape -->
+          <g fill="url(#silverGrad)" filter="url(#glow)">
+            <!-- Top-left wing -->
+            <polygon points="100,100 30,30 55,30 100,75 100,100" />
+            <polygon points="30,30 55,30 55,55 30,55" />
+            <polygon points="55,30 85,30 100,45 100,75 70,45" />
+            <!-- Top-right wing -->
+            <polygon points="100,100 170,30 145,30 100,75 100,100" />
+            <polygon points="170,30 145,30 145,55 170,55" />
+            <polygon points="145,30 115,30 100,45 100,75 130,45" />
+            <!-- Bottom-left wing -->
+            <polygon points="100,100 30,170 55,170 100,125 100,100" />
+            <polygon points="30,170 55,170 55,145 30,145" />
+            <polygon points="55,170 85,170 100,155 100,125 70,155" />
+            <!-- Bottom-right wing -->
+            <polygon points="100,100 170,170 145,170 100,125 100,100" />
+            <polygon points="170,170 145,170 145,145 170,145" />
+            <polygon points="145,170 115,170 100,155 100,125 130,155" />
+            <!-- Center cross -->
+            <rect x="92" y="85" width="16" height="30" rx="2" />
+            <rect x="85" y="92" width="30" height="16" rx="2" />
+          </g>
+        </svg>
+
+        <div class="intro-univ" id="introUniv">PRIMAKARA UNIVERSITY</div>
+        <div class="intro-line" id="introLine1" style="width: 0"></div>
+        <div class="intro-title" id="introTitle">WISUDA X</div>
+        <div class="intro-line" id="introLine2" style="width: 0"></div>
+        <div class="intro-sub" id="introSub">XTRAORDINARY</div>
+
+        <button class="btn-open" id="btnOpen">
+          <span class="btn-shimmer"></span>
+          ▶ &nbsp; Open Invitation
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════ MAIN ═══════════════════ -->
+    <div id="main">
+      <!-- NAV -->
+      <nav id="navbar">
+        <div class="nav-logo">
+          <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <polygon
+              points="20,4 36,36 4,36"
+              fill="none"
+              stroke="#38c6f4"
+              stroke-width="2"
+            />
+            <polygon points="20,12 30,32 10,32" fill="rgba(56,198,244,.2)" />
+          </svg>
+          PRIMAKARA
+        </div>
+        <ul class="nav-links">
+          <li><a href="#about">Tentang</a></li>
+          <li><a href="#schedule">Jadwal</a></li>
+          <li><a href="#rundown">Rundown</a></li>
+          <li><a href="#gallery">Galeri</a></li>
+          <li><a href="#location">Lokasi</a></li>
+          <li><a href="#contact">Kontak</a></li>
+        </ul>
+      </nav>
+
+      <!-- HERO -->
+      <section id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-ornament"></div>
+        <div class="hero-ornament"></div>
+
+        <div class="hero-content">
+          <div class="hero-kicker reveal">
+            Primakara University · Denpasar, Bali
+          </div>
+
+          <div class="hero-title reveal" style="animation: glitch 10s infinite">
+            WISUDA X
+          </div>
+          <div class="hero-sub reveal">X T R A O R D I N A R Y</div>
+
+          <div class="hero-date-badge reveal">
+            <span>Sabtu</span>
+            <div class="sep"></div>
+            <span>21 Juni 2025</span>
+            <div class="sep"></div>
+            <span>08.00 WITA</span>
+          </div>
+
+          <div class="hero-scroll">
+            <span>Scroll</span>
+            <div class="scroll-dot"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about">
+        <div class="section-inner">
+          <div class="about-grid">
+            <div class="about-text reveal">
+              <div class="section-label">Tentang Wisuda</div>
+              <h2 class="section-title">
+                Merayakan Pencapaian<br /><span style="color: var(--cyan)"
+                  >Luar Biasa</span
+                >
+              </h2>
+              <div class="section-divider"></div>
+              <p>
+                Wisuda <strong>Xtraordinary</strong> adalah momen bersejarah
+                bagi Primakara University dalam merayakan kelulusan para
+                mahasiswa terbaik yang telah melewati perjalanan akademik penuh
+                dedikasi dan inovasi.
+              </p>
+              <p>
+                Tema <strong>"Xtraordinary"</strong> mencerminkan semangat para
+                wisudawan yang tidak hanya mencapai standar biasa, tetapi
+                melampaui batas kemungkinan — membawa semangat teknologi dan
+                kreativitas ke dunia profesional.
+              </p>
+              <p>
+                Kami mengundang Anda untuk hadir dan menjadi bagian dari
+                perayaan bersejarah ini, menyaksikan generasi inovator Bali yang
+                siap mengubah dunia.
+              </p>
+            </div>
+            <div class="about-stats reveal">
+              <div class="stat-card">
+                <div class="stat-num">487</div>
+                <div class="stat-label">Wisudawan</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-num">5</div>
+                <div class="stat-label">Program Studi</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-num">X</div>
+                <div class="stat-label">Angkatan Wisuda</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-num">3.72</div>
+                <div class="stat-label">IPK Rata-rata</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCHEDULE -->
+      <section id="schedule">
+        <div class="section-inner">
+          <div class="section-label reveal">Jadwal Acara</div>
+          <h2 class="section-title reveal">
+            Agenda <span style="color: var(--cyan)">Utama</span>
+          </h2>
+          <div class="section-divider reveal"></div>
+
+          <div class="schedule-timeline">
+            <div class="timeline-item">
+              <div class="tl-time">07.00</div>
+              <div class="tl-line">
+                <div class="tl-dot"></div>
+                <div class="tl-connector"></div>
+              </div>
+              <div class="tl-card">
+                <div class="tl-card-title">Registrasi & Penerimaan Tamu</div>
+                <div class="tl-card-desc">
+                  Para tamu undangan melakukan registrasi dan diarahkan ke
+                  tempat duduk yang telah disiapkan. Tersedia area foto dan
+                  display karya mahasiswa.
+                </div>
+                <span class="tl-card-tag">Registrasi</span>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="tl-time">08.00</div>
+              <div class="tl-line">
+                <div class="tl-dot"></div>
+                <div class="tl-connector"></div>
+              </div>
+              <div class="tl-card">
+                <div class="tl-card-title">
+                  Prosesi Wisudawan Memasuki Gedung
+                </div>
+                <div class="tl-card-desc">
+                  Iring-iringan wisudawan memasuki ruang utama dengan iringan
+                  musik ceremonial. Dihadiri oleh Rektor, Dekan, dan seluruh
+                  civitas academica Primakara University.
+                </div>
+                <span class="tl-card-tag">Seremonial</span>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="tl-time">08.30</div>
+              <div class="tl-line">
+                <div class="tl-dot"></div>
+                <div class="tl-connector"></div>
+              </div>
+              <div class="tl-card">
+                <div class="tl-card-title">
+                  Pembukaan & Menyanyikan Lagu Kebangsaan
+                </div>
+                <div class="tl-card-desc">
+                  Pembukaan resmi acara wisuda oleh MC. Menyanyikan lagu
+                  Indonesia Raya dan Hymne Primakara bersama-sama.
+                </div>
+                <span class="tl-card-tag">Pembukaan</span>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="tl-time">09.00</div>
+              <div class="tl-line">
+                <div class="tl-dot"></div>
+                <div class="tl-connector"></div>
+              </div>
+              <div class="tl-card">
+                <div class="tl-card-title">
+                  Sambutan Rektor Primakara University
+                </div>
+                <div class="tl-card-desc">
+                  Sambutan resmi dari Rektor Primakara University, menyampaikan
+                  pesan inspiratif dan pencapaian institusi selama satu tahun
+                  akademik.
+                </div>
+                <span class="tl-card-tag">Sambutan</span>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="tl-time">09.30</div>
+              <div class="tl-line">
+                <div class="tl-dot"></div>
+                <div class="tl-connector"></div>
+              </div>
+              <div class="tl-card">
+                <div class="tl-card-title">
+                  Penyerahan Ijazah & Pemindahan Tali Toga
+                </div>
+                <div class="tl-card-desc">
+                  Prosesi utama wisuda: penyerahan ijazah kepada seluruh
+                  wisudawan per program studi, dilanjutkan dengan pemindahan
+                  tali toga sebagai simbol kelulusan resmi.
+                </div>
+                <span class="tl-card-tag">Puncak Acara</span>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="tl-time">11.00</div>
+              <div class="tl-line">
+                <div class="tl-dot"></div>
+                <div class="tl-connector"></div>
+              </div>
+              <div class="tl-card">
+                <div class="tl-card-title">Penampilan Seni & Hiburan</div>
+                <div class="tl-card-desc">
+                  Penampilan seni dari Unit Kegiatan Mahasiswa Primakara
+                  University: tari kontemporer, musik akustik, dan pameran karya
+                  digital interaktif.
+                </div>
+                <span class="tl-card-tag">Hiburan</span>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="tl-time">12.00</div>
+              <div class="tl-line">
+                <div class="tl-dot"></div>
+                <div class="tl-connector"></div>
+              </div>
+              <div class="tl-card">
+                <div class="tl-card-title">Resepsi & Ramah Tamah</div>
+                <div class="tl-card-desc">
+                  Sesi foto bersama, resepsi makan siang, dan ramah tamah antara
+                  wisudawan, keluarga, dosen, dan tamu undangan. Area foto booth
+                  tersedia di beberapa titik.
+                </div>
+                <span class="tl-card-tag">Resepsi</span>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="tl-time">14.00</div>
+              <div class="tl-line"><div class="tl-dot"></div></div>
+              <div class="tl-card">
+                <div class="tl-card-title">Penutupan</div>
+                <div class="tl-card-desc">
+                  Doa penutup dan pernyataan resmi penutupan acara Wisuda
+                  Xtraordinary Primakara University 2025.
+                </div>
+                <span class="tl-card-tag">Penutupan</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RUNDOWN HARI H -->
+      <section id="rundown">
+        <div class="section-inner">
+          <div class="section-label reveal">Hari Pelaksanaan</div>
+          <h2 class="section-title reveal">
+            Rundown <span style="color: var(--cyan)">Hari H</span>
+          </h2>
+          <div class="section-divider reveal"></div>
+          <div class="rundown-grid">
+            <div class="rundown-card">
+              <div class="rundown-num">01</div>
+              <div class="rundown-time">05.30 – 06.30</div>
+              <div class="rundown-title">Persiapan Panitia</div>
+              <div class="rundown-desc">
+                Seluruh panitia hadir untuk setting dekorasi, sound system,
+                lighting, dan kesiapan venue sebelum tamu berdatangan.
+              </div>
+            </div>
+            <div class="rundown-card">
+              <div class="rundown-num">02</div>
+              <div class="rundown-time">06.30 – 07.00</div>
+              <div class="rundown-title">Gladi Bersih Akhir</div>
+              <div class="rundown-desc">
+                Simulasi prosesi, pengecekan teknis mikrofon, layar proyeksi,
+                dan koordinasi final tim ceremonial dengan MC.
+              </div>
+            </div>
+            <div class="rundown-card">
+              <div class="rundown-num">03</div>
+              <div class="rundown-time">07.00 – 08.00</div>
+              <div class="rundown-title">Penerimaan Tamu VIP</div>
+              <div class="rundown-desc">
+                Penyambutan tamu VIP dan VVIP di pintu khusus, pengarahan tempat
+                duduk, welcome drink, dan briefing protokol.
+              </div>
+            </div>
+            <div class="rundown-card">
+              <div class="rundown-num">04</div>
+              <div class="rundown-time">08.00 – 08.15</div>
+              <div class="rundown-title">Prosesi Masuk Wisudawan</div>
+              <div class="rundown-desc">
+                Iring-iringan wisudawan per program studi memasuki auditorium
+                dengan musik prosesi khusus yang telah diaransemen.
+              </div>
+            </div>
+            <div class="rundown-card">
+              <div class="rundown-num">05</div>
+              <div class="rundown-time">09.30 – 11.00</div>
+              <div class="rundown-title">Penyerahan Ijazah</div>
+              <div class="rundown-desc">
+                Puncak prosesi: pemanggilan nama, penyerahan ijazah oleh Rektor,
+                pemindahan tali toga, dan foto resmi per wisudawan.
+              </div>
+            </div>
+            <div class="rundown-card">
+              <div class="rundown-num">06</div>
+              <div class="rundown-time">11.00 – 14.00</div>
+              <div class="rundown-title">Sesi Foto & Resepsi</div>
+              <div class="rundown-desc">
+                Sesi foto bebas di area dekorasi, santap siang bersama, dan
+                ramah tamah informal antara wisudawan dan keluarga.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- GALLERY -->
+      <section id="gallery">
+        <div class="section-inner">
+          <div class="section-label reveal">Galeri</div>
+          <h2 class="section-title reveal">
+            Momen <span style="color: var(--cyan)">Berkesan</span>
+          </h2>
+          <div class="section-divider reveal"></div>
+
+          <div class="gallery-grid">
+            <div class="gallery-item">
+              <div class="gallery-placeholder">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="rgba(56,198,244,.5)"
+                  stroke-width="1"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <polyline points="21,15 16,10 5,21" />
+                </svg>
+              </div>
+              <div class="gallery-overlay"><p>Prosesi Wisudawan</p></div>
+            </div>
+            <div class="gallery-item">
+              <div class="gallery-placeholder">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="rgba(56,198,244,.5)"
+                  stroke-width="1"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <polyline points="21,15 16,10 5,21" />
+                </svg>
+              </div>
+              <div class="gallery-overlay"><p>Penyerahan Ijazah</p></div>
+            </div>
+            <div class="gallery-item">
+              <div class="gallery-placeholder">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="rgba(56,198,244,.5)"
+                  stroke-width="1"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <polyline points="21,15 16,10 5,21" />
+                </svg>
+              </div>
+              <div class="gallery-overlay"><p>Foto Bersama Rektor</p></div>
+            </div>
+            <div class="gallery-item">
+              <div class="gallery-placeholder">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="rgba(56,198,244,.5)"
+                  stroke-width="1"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <polyline points="21,15 16,10 5,21" />
+                </svg>
+              </div>
+              <div class="gallery-overlay"><p>Momen Keluarga</p></div>
+            </div>
+            <div class="gallery-item">
+              <div class="gallery-placeholder">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="rgba(56,198,244,.5)"
+                  stroke-width="1"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <polyline points="21,15 16,10 5,21" />
+                </svg>
+              </div>
+              <div class="gallery-overlay"><p>Penampilan Seni</p></div>
+            </div>
+            <div class="gallery-item">
+              <div class="gallery-placeholder">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="rgba(56,198,244,.5)"
+                  stroke-width="1"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <polyline points="21,15 16,10 5,21" />
+                </svg>
+              </div>
+              <div class="gallery-overlay"><p>Sesi Ramah Tamah</p></div>
+            </div>
+            <div class="gallery-item">
+              <div class="gallery-placeholder">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="rgba(56,198,244,.5)"
+                  stroke-width="1"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <polyline points="21,15 16,10 5,21" />
+                </svg>
+              </div>
+              <div class="gallery-overlay"><p>Wisuda Xtraordinary</p></div>
+            </div>
+          </div>
+          <p
+            style="
+              text-align: center;
+              margin-top: 24px;
+              font-size: 0.85rem;
+              color: rgba(200, 216, 240, 0.4);
+              letter-spacing: 0.1em;
+            "
+          >
+            * Galeri akan diperbarui dengan foto dokumentasi resmi setelah acara
+          </p>
+        </div>
+      </section>
+
+      <!-- DRESS CODE -->
+      <section id="dresscode">
+        <div class="section-inner">
+          <div class="section-label reveal">Dress Code</div>
+          <h2 class="section-title reveal">
+            Panduan <span style="color: var(--cyan)">Berpakaian</span>
+          </h2>
+          <div class="section-divider reveal"></div>
+          <div class="dresscode-grid">
+            <div class="dress-card">
+              <div class="dress-icon">🎓</div>
+              <div class="dress-role">Wisudawan</div>
+              <div class="dress-name">Toga Resmi</div>
+              <div class="dress-desc">
+                Menggunakan toga resmi Primakara University beserta atribut
+                lengkap sesuai program studi. Pakaian dasar: kemeja putih/blus
+                formal.
+              </div>
+            </div>
+            <div class="dress-card">
+              <div class="dress-icon">👔</div>
+              <div class="dress-role">Tamu Undangan</div>
+              <div class="dress-name">Formal / Batik</div>
+              <div class="dress-desc">
+                Pria: jas/batik formal berwarna gelap. Wanita: kebaya, gaun
+                formal, atau batik. Warna yang direkomendasikan: navy, hitam,
+                abu-abu, atau emas.
+              </div>
+            </div>
+            <div class="dress-card">
+              <div class="dress-icon">🌟</div>
+              <div class="dress-role">Tamu VVIP</div>
+              <div class="dress-name">Semi-Formal</div>
+              <div class="dress-desc">
+                Busana semi-formal atau formal sesuai jabatan. Tamu VVIP akan
+                diarahkan ke area khusus dengan layanan protokol dari panitia.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LOCATION -->
+      <section id="location">
+        <div class="section-inner">
+          <div class="section-label reveal">Lokasi</div>
+          <h2 class="section-title reveal">
+            Venue <span style="color: var(--cyan)">Acara</span>
+          </h2>
+          <div class="section-divider reveal"></div>
+          <div class="location-grid">
+            <div class="location-map reveal">
+              <div class="map-pin"></div>
+              <div
+                style="
+                  position: absolute;
+                  bottom: 20px;
+                  left: 20px;
+                  font-family: &quot;Orbitron&quot;, sans-serif;
+                  font-size: 0.7rem;
+                  letter-spacing: 0.1em;
+                  color: rgba(56, 198, 244, 0.6);
+                "
+              >
+                DENPASAR · BALI · INDONESIA
+              </div>
+            </div>
+            <div class="location-info reveal">
+              <div class="location-detail">
+                <div class="location-detail-icon">📍</div>
+                <div class="location-detail-text">
+                  <h4>Gedung Utama Primakara University</h4>
+                  <p>
+                    Jl. Tukad Badung No. 135, Renon,<br />Denpasar Selatan, Bali
+                    80234
+                  </p>
+                </div>
+              </div>
+              <div class="location-detail">
+                <div class="location-detail-icon">🕐</div>
+                <div class="location-detail-text">
+                  <h4>Waktu Pelaksanaan</h4>
+                  <p>Sabtu, 21 Juni 2025<br />Pukul 07.00 – 14.00 WITA</p>
+                </div>
+              </div>
+              <div class="location-detail">
+                <div class="location-detail-icon">🅿</div>
+                <div class="location-detail-text">
+                  <h4>Parkir</h4>
+                  <p>
+                    Area parkir tersedia di halaman utama dan area belakang
+                    kampus. Shuttle service tersedia dari parkiran ke pintu
+                    masuk utama.
+                  </p>
+                </div>
+              </div>
+              <div class="location-detail">
+                <div class="location-detail-icon">📋</div>
+                <div class="location-detail-text">
+                  <h4>Catatan Penting</h4>
+                  <p>
+                    Mohon membawa undangan saat acara.<br />Undangan berlaku
+                    untuk 1 (satu) orang.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <div class="section-inner">
+          <div class="section-label reveal">Kontak</div>
+          <h2 class="section-title reveal">
+            Informasi <span style="color: var(--cyan)">Lebih Lanjut</span>
+          </h2>
+          <div class="section-divider reveal"></div>
+          <div class="contact-grid">
+            <div class="contact-card reveal">
+              <h3>📞 Hubungi Kami</h3>
+              <ul class="contact-list">
+                <li><span class="icon">📱</span> 0361-8956085</li>
+                <li><span class="icon">💬</span> 081 239 991 075 (WhatsApp)</li>
+                <li><span class="icon">📧</span> info@primakara.ac.id</li>
+                <li><span class="icon">🌐</span> www.primakara.ac.id</li>
+              </ul>
+            </div>
+            <div class="contact-card reveal">
+              <h3>📱 Ikuti Kami</h3>
+              <ul class="contact-list">
+                <li><span class="icon">📘</span> Primakara University</li>
+                <li><span class="icon">📷</span> @primakara.univ</li>
+                <li><span class="icon">🐦</span> @PrimakaraUniv</li>
+                <li>
+                  <span class="icon">▶</span> Primakara University Official
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer>
+        <div class="footer-logo">
+          <svg
+            viewBox="0 0 40 40"
+            width="28"
+            height="28"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polygon
+              points="20,4 36,36 4,36"
+              fill="none"
+              stroke="#38c6f4"
+              stroke-width="2"
+            />
+            <polygon points="20,12 30,32 10,32" fill="rgba(56,198,244,.2)" />
+          </svg>
+          PRIMAKARA UNIVERSITY
+        </div>
+        <div class="footer-line"></div>
+        <div class="footer-tagline">
+          Wisuda Xtraordinary · Perayaan Kelulusan Angkatan Ke-10<br />
+          Jl. Tukad Badung 135 Renon, Denpasar – Bali – Indonesia
+        </div>
+        <div class="footer-copy">
+          © 2025 Primakara University. All rights reserved.
+        </div>
+      </footer>
+    </div>
+    <!-- #main -->
+
+    <script>
+      // ─── CURSOR ───
+      const cursor = document.getElementById("cursor");
+      const ring = document.getElementById("cursorRing");
+      let mx = 0,
+        my = 0,
+        rx = 0,
+        ry = 0;
+      document.addEventListener("mousemove", (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+      });
+      (function animCursor() {
+        cursor.style.left = mx + "px";
+        cursor.style.top = my + "px";
+        rx += (mx - rx) * 0.12;
+        ry += (my - ry) * 0.12;
+        ring.style.left = rx + "px";
+        ring.style.top = ry + "px";
+        requestAnimationFrame(animCursor);
+      })();
+
+      // ─── PARTICLES ───
+      const particleContainer = document.getElementById("particles");
+      for (let i = 0; i < 35; i++) {
+        const p = document.createElement("div");
+        p.className = "particle";
+        p.style.left = Math.random() * 100 + "vw";
+        p.style.animationDuration = 8 + Math.random() * 14 + "s";
+        p.style.animationDelay = Math.random() * 14 + "s";
+        p.style.width = p.style.height = 1 + Math.random() * 2.5 + "px";
+        p.style.opacity = Math.random() * 0.6;
+        particleContainer.appendChild(p);
+      }
+
+      // ─── INTRO ANIMATION ───
+      gsap.registerPlugin(ScrollTrigger);
+      const tl = gsap.timeline({ delay: 0.3 });
+
+      tl.to(".intro-stripe", {
+        opacity: 1,
+        duration: 1.5,
+        stagger: 0.3,
+        ease: "power2.out",
+      })
+        .from(
+          ".logo-svg",
+          { scale: 0, opacity: 0, duration: 1.2, ease: "back.out(1.5)" },
+          "-=1",
+        )
+        .to(
+          "#introUniv",
+          { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
+          "-=.4",
+        )
+        .to(
+          "#introLine1",
+          { opacity: 1, width: "200px", duration: 0.6 },
+          "-=.3",
+        )
+        .to(
+          "#introTitle",
+          { opacity: 1, duration: 1, ease: "power3.out" },
+          "-=.2",
+        )
+        .to(
+          "#introLine2",
+          { opacity: 1, width: "200px", duration: 0.6 },
+          "-=.4",
+        )
+        .to("#introSub", { opacity: 1, y: 0, duration: 0.7 }, "-=.3")
+        .to(
+          "#btnOpen",
+          { opacity: 1, y: 0, duration: 0.7, ease: "back.out(1.5)" },
+          "-=.2",
+        );
+
+      // ─── OPEN INVITATION ───
+      document.getElementById("btnOpen").addEventListener("click", () => {
+        gsap.to("#intro", {
+          opacity: 0,
+          scale: 1.04,
+          duration: 1,
+          ease: "power3.inOut",
+          onComplete: () => {
+            document.getElementById("intro").style.display = "none";
+            document.getElementById("main").style.visibility = "visible";
+            gsap.to("#main", { opacity: 1, duration: 0.8, ease: "power2.out" });
+            initScrollAnimations();
+          },
+        });
+      });
+
+      // ─── SCROLL ANIMATIONS ───
+      function initScrollAnimations() {
+        // Reveal elements
+        document.querySelectorAll(".reveal").forEach((el) => {
+          ScrollTrigger.create({
+            trigger: el,
+            start: "top 88%",
+            onEnter: () => el.classList.add("visible"),
+          });
+        });
+
+        // Timeline items
+        gsap.utils.toArray(".timeline-item").forEach((item, i) => {
+          gsap.to(item, {
+            opacity: 1,
+            x: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            delay: i * 0.08,
+            scrollTrigger: { trigger: item, start: "top 90%" },
+          });
+        });
+
+        // Rundown cards
+        gsap.utils.toArray(".rundown-card").forEach((card, i) => {
+          gsap.to(card, {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "power3.out",
+            delay: i * 0.1,
+            scrollTrigger: { trigger: card, start: "top 90%" },
+          });
+        });
+
+        // Gallery items
+        gsap.utils.toArray(".gallery-item").forEach((item, i) => {
+          gsap.to(item, {
+            opacity: 1,
+            duration: 0.8,
+            delay: i * 0.1,
+            scrollTrigger: { trigger: item, start: "top 95%" },
+          });
+        });
+
+        // Dress cards
+        gsap.utils.toArray(".dress-card").forEach((card, i) => {
+          gsap.to(card, {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            delay: i * 0.12,
+            scrollTrigger: { trigger: card, start: "top 90%" },
+          });
+        });
+
+        // Navbar scroll effect
+        ScrollTrigger.create({
+          start: "top -60",
+          onUpdate: (self) => {
+            const nav = document.getElementById("navbar");
+            nav.style.background =
+              self.direction === 1
+                ? "rgba(2,13,31,.97)"
+                : "linear-gradient(180deg, rgba(2,13,31,.95) 0%, transparent 100%)";
+          },
+        });
+      }
+    </script>
+  </body>
+</html>
