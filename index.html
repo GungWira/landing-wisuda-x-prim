@@ -115,7 +115,12 @@
         position: fixed;
         inset: 0;
         z-index: 100;
-        background: var(--navy);
+        background: radial-gradient(
+          ellipse at center,
+          #102363 0%,
+          #0a1948 55%,
+          #06102f 100%
+        );
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -123,45 +128,23 @@
         gap: 0;
         overflow: hidden;
       }
-      .intro-grid {
-        position: absolute;
-        inset: 0;
-        background-image:
-          linear-gradient(rgba(56, 198, 244, 0.06) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(56, 198, 244, 0.06) 1px, transparent 1px);
-        background-size: 60px 60px;
-        animation: gridDrift 20s linear infinite;
-      }
-      @keyframes gridDrift {
-        to {
-          background-position: 60px 60px;
-        }
-      }
 
-      /* diagonal stripe accents */
-      .intro-stripe {
+      .intro-ornament {
         position: absolute;
-        width: 500px;
-        height: 6px;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          var(--blue-bright),
-          var(--cyan),
-          transparent
-        );
+        width: min(26vw, 360px);
+        height: auto;
+        pointer-events: none;
+        user-select: none;
         opacity: 0;
-        filter: blur(1px);
+        will-change: transform, opacity;
       }
-      .intro-stripe:nth-child(1) {
-        top: 30%;
-        left: -20%;
-        transform: rotate(-25deg);
+      .intro-ornament-left {
+        top: 0;
+        left: 0;
       }
-      .intro-stripe:nth-child(2) {
-        bottom: 30%;
-        right: -20%;
-        transform: rotate(-25deg);
+      .intro-ornament-right {
+        bottom: 0;
+        right: 0;
       }
 
       .intro-logo-wrap {
@@ -170,99 +153,56 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 28px;
+        gap: 36px;
       }
 
-      /* SVG butterfly X logo */
-      .logo-svg {
-        width: 140px;
-        height: 140px;
-      }
-      .logo-path {
-        fill: url(#silverGrad);
-        filter: drop-shadow(0 0 18px rgba(56, 198, 244, 0.7));
-      }
-
-      .intro-title {
-        font-family: "Orbitron", sans-serif;
-        font-size: clamp(2.4rem, 6vw, 5rem);
-        font-weight: 900;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        background: linear-gradient(135deg, #fff 30%, var(--cyan) 70%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        filter: drop-shadow(0 0 30px rgba(56, 198, 244, 0.4));
+      .intro-logo-img {
+        width: min(520px, 70vw);
+        height: auto;
+        filter: drop-shadow(0 10px 40px rgba(56, 198, 244, 0.35));
         opacity: 0;
-      }
-
-      .intro-sub {
-        font-family: "Rajdhani", sans-serif;
-        font-size: 1rem;
-        letter-spacing: 0.5em;
-        text-transform: uppercase;
-        color: var(--cyan);
-        opacity: 0;
-      }
-
-      .intro-univ {
-        font-family: "Rajdhani", sans-serif;
-        font-size: 0.85rem;
-        letter-spacing: 0.3em;
-        color: rgba(200, 216, 240, 0.5);
-        text-transform: uppercase;
-        opacity: 0;
-      }
-
-      .intro-line {
-        width: 0;
-        height: 1px;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          var(--cyan),
-          transparent
-        );
-        opacity: 0;
-        margin: 4px 0;
+        will-change: transform, opacity;
       }
 
       .btn-open {
-        margin-top: 36px;
         position: relative;
         z-index: 2;
-        padding: 14px 52px;
-        border: 1px solid var(--cyan);
-        background: transparent;
-        color: var(--white);
+        min-height: 48px;
+        padding: 14px 42px;
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        border-radius: 999px;
+        background: linear-gradient(
+          180deg,
+          #ffffff 0%,
+          #e6ecf3 45%,
+          #aab4c2 100%
+        );
+        color: #0a1948;
         font-family: "Orbitron", sans-serif;
         font-size: 0.85rem;
-        letter-spacing: 0.25em;
+        font-weight: 800;
+        letter-spacing: 0.22em;
         text-transform: uppercase;
         cursor: none;
         overflow: hidden;
-        clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
-        transition: color 0.3s;
+        box-shadow:
+          0 10px 30px rgba(0, 0, 0, 0.45),
+          0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+          0 1px 0 rgba(255, 255, 255, 0.9) inset,
+          0 -8px 18px rgba(56, 130, 220, 0.25) inset;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
         opacity: 0;
       }
-      .btn-open::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(90deg, var(--blue-bright), var(--cyan));
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.4s ease;
-        z-index: -1;
-      }
-      .btn-open:hover::before {
-        transform: scaleX(1);
-      }
       .btn-open:hover {
-        color: var(--navy);
+        transform: translateY(-1px);
+        box-shadow:
+          0 14px 36px rgba(0, 0, 0, 0.5),
+          0 0 0 1px rgba(255, 255, 255, 0.3) inset,
+          0 1px 0 rgba(255, 255, 255, 1) inset,
+          0 -8px 18px rgba(56, 130, 220, 0.35) inset;
       }
-
       .btn-open .btn-shimmer {
         position: absolute;
         top: 0;
@@ -272,14 +212,26 @@
         background: linear-gradient(
           90deg,
           transparent,
-          rgba(255, 255, 255, 0.2),
+          rgba(255, 255, 255, 0.6),
           transparent
         );
-        animation: shimmer 2.5s ease infinite;
+        animation: shimmer 2.8s ease infinite;
+        pointer-events: none;
       }
       @keyframes shimmer {
         to {
           left: 200%;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .intro-ornament {
+          width: 42vw;
+          opacity: 0.85;
+        }
+        .btn-open {
+          padding: 14px 32px;
+          letter-spacing: 0.18em;
         }
       }
 
@@ -317,9 +269,10 @@
         letter-spacing: 0.15em;
         color: var(--white);
       }
-      .nav-logo svg {
-        width: 32px;
-        height: 32px;
+      .nav-logo img {
+        height: 40px;
+        width: auto;
+        display: block;
       }
       .nav-links {
         display: flex;
@@ -368,36 +321,41 @@
       .hero-bg {
         position: absolute;
         inset: 0;
-        background:
-          radial-gradient(
-            ellipse 70% 60% at 50% 40%,
-            rgba(13, 58, 140, 0.5) 0%,
-            transparent 70%
-          ),
-          radial-gradient(
-            ellipse 40% 40% at 80% 80%,
-            rgba(56, 198, 244, 0.08) 0%,
-            transparent 60%
-          ),
-          var(--navy);
+        background: radial-gradient(
+          ellipse at center,
+          #102363 0%,
+          #0a1948 55%,
+          #06102f 100%
+        );
       }
-      .hero-ornament {
+      .hero-ornament-img {
         position: absolute;
-        width: 700px;
-        height: 700px;
-        border: 1px solid rgba(56, 198, 244, 0.08);
-        border-radius: 50%;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        animation: orbitPulse 8s ease-in-out infinite;
+        width: min(26vw, 360px);
+        height: auto;
+        pointer-events: none;
+        user-select: none;
+        opacity: 0.85;
+        z-index: 1;
       }
-      .hero-ornament:nth-child(2) {
-        width: 500px;
-        height: 500px;
-        border-color: rgba(56, 198, 244, 0.12);
-        animation-delay: -3s;
-        animation-duration: 6s;
+      .hero-ornament-img.left {
+        top: 0;
+        left: 0;
+      }
+      .hero-ornament-img.right {
+        bottom: 0;
+        right: 0;
+      }
+      .hero-logo-img {
+        width: min(460px, 75vw);
+        height: auto;
+        margin-bottom: 32px;
+        filter: drop-shadow(0 12px 40px rgba(56, 198, 244, 0.35));
+      }
+      @media (max-width: 768px) {
+        .hero-ornament-img {
+          width: 42vw;
+          opacity: 0.6;
+        }
       }
       @keyframes orbitPulse {
         0%,
@@ -415,6 +373,9 @@
         position: relative;
         z-index: 2;
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
 
       .hero-kicker {
@@ -1152,11 +1113,12 @@
       .footer-logo {
         display: flex;
         align-items: center;
-        gap: 10px;
-        font-family: "Orbitron", sans-serif;
-        font-size: 0.9rem;
-        letter-spacing: 0.15em;
-        color: var(--white);
+        justify-content: center;
+      }
+      .footer-logo img {
+        height: 72px;
+        width: auto;
+        display: block;
       }
       .footer-tagline {
         font-family: "Inter", sans-serif;
@@ -1279,64 +1241,29 @@
 
     <!-- ═══════════════════ INTRO ═══════════════════ -->
     <div id="intro">
-      <div class="intro-grid"></div>
-      <div class="intro-stripe"></div>
-      <div class="intro-stripe"></div>
+      <img
+        class="intro-ornament intro-ornament-left"
+        src="assets/pojok-kiri-atas.webp"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        class="intro-ornament intro-ornament-right"
+        src="assets/pojok-kanan-bawah.webp"
+        alt=""
+        aria-hidden="true"
+      />
 
       <div class="intro-logo-wrap">
-        <!-- Butterfly X SVG Logo -->
-        <svg
-          class="logo-svg"
-          viewBox="0 0 200 200"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <linearGradient id="silverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style="stop-color: #ffffff" />
-              <stop offset="40%" style="stop-color: #a8c8e8" />
-              <stop offset="100%" style="stop-color: #38c6f4" />
-            </linearGradient>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="3" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
-          <!-- X butterfly shape -->
-          <g fill="url(#silverGrad)" filter="url(#glow)">
-            <!-- Top-left wing -->
-            <polygon points="100,100 30,30 55,30 100,75 100,100" />
-            <polygon points="30,30 55,30 55,55 30,55" />
-            <polygon points="55,30 85,30 100,45 100,75 70,45" />
-            <!-- Top-right wing -->
-            <polygon points="100,100 170,30 145,30 100,75 100,100" />
-            <polygon points="170,30 145,30 145,55 170,55" />
-            <polygon points="145,30 115,30 100,45 100,75 130,45" />
-            <!-- Bottom-left wing -->
-            <polygon points="100,100 30,170 55,170 100,125 100,100" />
-            <polygon points="30,170 55,170 55,145 30,145" />
-            <polygon points="55,170 85,170 100,155 100,125 70,155" />
-            <!-- Bottom-right wing -->
-            <polygon points="100,100 170,170 145,170 100,125 100,100" />
-            <polygon points="170,170 145,170 145,145 170,145" />
-            <polygon points="145,170 115,170 100,155 100,125 130,155" />
-            <!-- Center cross -->
-            <rect x="92" y="85" width="16" height="30" rx="2" />
-            <rect x="85" y="92" width="30" height="16" rx="2" />
-          </g>
-        </svg>
+        <img
+          class="intro-logo-img"
+          src="assets/wisuda-logo.webp"
+          alt="Wisuda Xtraordinary - Primakara University"
+        />
 
-        <div class="intro-univ" id="introUniv">PRIMAKARA UNIVERSITY</div>
-        <div class="intro-line" id="introLine1" style="width: 0"></div>
-        <div class="intro-title" id="introTitle">WISUDA X</div>
-        <div class="intro-line" id="introLine2" style="width: 0"></div>
-        <div class="intro-sub" id="introSub">XTRAORDINARY</div>
-
-        <button class="btn-open" id="btnOpen">
+        <button class="btn-open" id="btnOpen" aria-label="Open Invitation">
           <span class="btn-shimmer"></span>
-          ▶ &nbsp; Open Invitation
+          OPEN INVITATION
         </button>
       </div>
     </div>
@@ -1345,18 +1272,9 @@
     <div id="main">
       <!-- NAV -->
       <nav id="navbar">
-        <div class="nav-logo">
-          <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-            <polygon
-              points="20,4 36,36 4,36"
-              fill="none"
-              stroke="#38c6f4"
-              stroke-width="2"
-            />
-            <polygon points="20,12 30,32 10,32" fill="rgba(56,198,244,.2)" />
-          </svg>
-          PRIMAKARA
-        </div>
+        <a href="#hero" class="nav-logo">
+          <img src="assets/wisuda-logo.webp" alt="Wisuda Xtraordinary" />
+        </a>
         <ul class="nav-links">
           <li><a href="#about">Tentang</a></li>
           <li><a href="#schedule">Jadwal</a></li>
@@ -1370,18 +1288,29 @@
       <!-- HERO -->
       <section id="hero">
         <div class="hero-bg"></div>
-        <div class="hero-ornament"></div>
-        <div class="hero-ornament"></div>
+        <img
+          class="hero-ornament-img left"
+          src="assets/pojok-kiri-atas.webp"
+          alt=""
+          aria-hidden="true"
+        />
+        <img
+          class="hero-ornament-img right"
+          src="assets/pojok-kanan-bawah.webp"
+          alt=""
+          aria-hidden="true"
+        />
 
         <div class="hero-content">
           <div class="hero-kicker reveal">
             Primakara University · Denpasar, Bali
           </div>
 
-          <div class="hero-title reveal" style="animation: glitch 10s infinite">
-            WISUDA X
-          </div>
-          <div class="hero-sub reveal">X T R A O R D I N A R Y</div>
+          <img
+            class="hero-logo-img reveal"
+            src="assets/wisuda-logo.webp"
+            alt="Wisuda Xtraordinary"
+          />
 
           <div class="hero-date-badge reveal">
             <span>Sabtu</span>
@@ -1390,11 +1319,10 @@
             <div class="sep"></div>
             <span>08.00 WITA</span>
           </div>
-
-          <div class="hero-scroll">
-            <span>Scroll</span>
-            <div class="scroll-dot"></div>
-          </div>
+        </div>
+        <div class="hero-scroll">
+          <span>Scroll</span>
+          <div class="scroll-dot"></div>
         </div>
       </section>
 
@@ -1946,21 +1874,7 @@
       <!-- FOOTER -->
       <footer>
         <div class="footer-logo">
-          <svg
-            viewBox="0 0 40 40"
-            width="28"
-            height="28"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <polygon
-              points="20,4 36,36 4,36"
-              fill="none"
-              stroke="#38c6f4"
-              stroke-width="2"
-            />
-            <polygon points="20,12 30,32 10,32" fill="rgba(56,198,244,.2)" />
-          </svg>
-          PRIMAKARA UNIVERSITY
+          <img src="assets/wisuda-logo.webp" alt="Wisuda Xtraordinary" />
         </div>
         <div class="footer-line"></div>
         <div class="footer-tagline">
@@ -2013,42 +1927,28 @@
       gsap.registerPlugin(ScrollTrigger);
       const tl = gsap.timeline({ delay: 0.3 });
 
-      tl.to(".intro-stripe", {
-        opacity: 1,
-        duration: 1.5,
-        stagger: 0.3,
-        ease: "power2.out",
-      })
-        .from(
-          ".logo-svg",
-          { scale: 0, opacity: 0, duration: 1.2, ease: "back.out(1.5)" },
-          "-=1",
+      tl.fromTo(
+        ".intro-ornament-left",
+        { opacity: 0, x: -60 },
+        { opacity: 1, x: 0, duration: 1.2, ease: "power3.out" },
+      )
+        .fromTo(
+          ".intro-ornament-right",
+          { opacity: 0, x: 60 },
+          { opacity: 1, x: 0, duration: 1.2, ease: "power3.out" },
+          "-=1.1",
         )
-        .to(
-          "#introUniv",
-          { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
-          "-=.4",
+        .fromTo(
+          ".intro-logo-img",
+          { opacity: 0, scale: 0.85 },
+          { opacity: 1, scale: 1, duration: 1.1, ease: "back.out(1.4)" },
+          "-=.7",
         )
-        .to(
-          "#introLine1",
-          { opacity: 1, width: "200px", duration: 0.6 },
-          "-=.3",
-        )
-        .to(
-          "#introTitle",
-          { opacity: 1, duration: 1, ease: "power3.out" },
-          "-=.2",
-        )
-        .to(
-          "#introLine2",
-          { opacity: 1, width: "200px", duration: 0.6 },
-          "-=.4",
-        )
-        .to("#introSub", { opacity: 1, y: 0, duration: 0.7 }, "-=.3")
-        .to(
+        .fromTo(
           "#btnOpen",
-          { opacity: 1, y: 0, duration: 0.7, ease: "back.out(1.5)" },
-          "-=.2",
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
+          "-=.3",
         );
 
       // ─── OPEN INVITATION ───
