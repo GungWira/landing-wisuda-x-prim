@@ -1694,7 +1694,7 @@
 
         <div class="hero-content">
           <div class="hero-kicker reveal">
-            Undangan VVIP · Wisuda Ke-10 Primakara University
+            Undangan <span id="heroTier">VVIP</span> · Wisuda Ke-10 Primakara University
           </div>
 
           <img
@@ -2270,14 +2270,21 @@
         });
       });
 
-      // ─── GUEST NAME (URL PARAM) ───
+      // ─── GUEST NAME + TIER (URL PARAM) ───
       (() => {
         const params = new URLSearchParams(window.location.search);
+
+        // Tier: vip / vvip (default vvip)
+        const tierRaw = (params.get("tier") || "vvip").toLowerCase();
+        const tier = tierRaw === "vip" ? "VIP" : "VVIP";
+        const tierEl = document.getElementById("heroTier");
+        if (tierEl) tierEl.textContent = tier;
+
+        // Guest name
         const raw = params.get("to") || params.get("kepada");
         if (!raw) return;
-        const name = raw.trim().replace(/\s+/g, " ").slice(0, 80);
+        const name = raw.trim().replace(/\s+/g, " ").slice(0, 120);
         if (!name) return;
-        const introWrap = document.getElementById("introGuest");
         const introName = document.getElementById("introGuestName");
         const letterName = document.getElementById("letterGuestName");
         if (introName) introName.textContent = name;
